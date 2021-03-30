@@ -5,8 +5,11 @@
 #include<cctype>
 using namespace std;
 
-int main() {
+void readFile(){
     ifstream in("map.txt");
+    if (in.fail()){
+        cout << "Couldn't open map.txt!\n";
+    }
     char str1[100], str2[100], str3[100];
     in.getline(str1, 100);
     in.getline(str2, 100);
@@ -62,6 +65,59 @@ int main() {
         cout << str3 << endl;
         line++;
     }
-    return 0;
+}
+
+void menu (){
+    cout << "Please choose an option:\n"
+            "1) Load map\n"
+            "2) Display map\n"
+            "3) Set start\n"
+            "4) Set goal\n"
+            "5) Find path using DFS\n"
+            "6) Find path using BFS\n"
+            "7) Find path using DA\n"
+            "8) Display path"
+            "9) Quit";
+    int input;
+    cin >> input;
+
+    switch (input){
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case 4:
+
+            break;
+        case 5:
+
+            break;
+        case 6:
+
+            break;
+        case 7:
+
+            break;
+        case 8:
+
+            break;
+        case 9:
+
+            break;
+        default:
+            cout << "Invalid Choice!";
+            break;
+
+    }
+}
+
+int main() {
+
+
 }
 
