@@ -3,4 +3,4 @@ project(CMP305Project)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CMP305Project main.cpp)
+add_executable(CMP305Project main.cpp map.cpp location.cpp)

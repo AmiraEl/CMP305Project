@@ -5,10 +5,11 @@
 #include<cctype>
 using namespace std;
 
+//reads map and loads it into an appropriate data structure
 void readFile(){
     ifstream in("map.txt");
     if (in.fail()){
-        cout << "Couldn't open map.txt!\n";
+        cout << "Error: Couldn't open map.txt!\n";
     }else {
         char str1[100], str2[100], str3[100];
         in.getline(str1, 100);
@@ -29,7 +30,7 @@ void readFile(){
                 if (str1[i] == '-') above = false;
                 else if (str1[i] == ' ') above = true;
                 // else error
-                i = i + 3; // path left
+                i = i + 3; // skips over dashes/spaces
                 if (str2[j] == '|') left = false;
                 else if (str2[j] == ' ') left = true;
                 // else error
@@ -80,11 +81,10 @@ void menu (){
             "5) Find path using DFS\n"
             "6) Find path using BFS\n"
             "7) Find path using DA\n"
-            "8) Display path"
-            "9) Quit";
+            "8) Display path\n"
+            "9) Quit\n";
     int input;
     cin >> input;
-
     switch (input){
         case 1:
             readFile();
@@ -111,17 +111,31 @@ void menu (){
 
             break;
         case 9:
-
-            break;
+            cout << "Goodbye!\n";
+            exit(0);
         default:
             cout << "Invalid Choice!";
             break;
 
     }
+
 }
 
-int main() {
+void printChar(int n, char c, bool n1 = false) {
+    for (int i = 0; i < n; i++) cout << c;
+    if (n1) cout << endl;
+}
 
+void printTriangle(int n, int i = 1){
+    if (n == 0) return;
+    else{
+        printChar(n-1, ' ', false);
+        printChar(i, '*', true);
+        return printTriangle(n-1, i+1);
+    }
+}
 
+int main(){
+    printTriangle(5);
 }
 
