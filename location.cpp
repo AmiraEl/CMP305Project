@@ -2,15 +2,23 @@
 
 class location{
 public:
-    location(bool left = false, bool right = false, bool above = false,
-             bool bottom = false, char name = ' ', int x = 0, int y = 0) :
-             left(left), right(right), above(above), bottom(bottom), name(name), x(x), y(y) {
+    location(location *left, location *right, location *above, location *below, char name, int cost = 0) : left(left),
+    right(right), above(above),
+    below(below), name(name), cost(cost){}
+
+    location(location* & copy){
+        this->left = copy->left;
+        this->right = copy->right;
+        this->above = copy->above;
+        this->below = copy->below;
+        this->name = copy->name;
+        this->cost = copy->cost;
 
     }
 
 private:
-    bool left, right, above, bottom;
+    location *left, *right, *above, *below;
     char name;
-    int x, y;
+    int cost;
 
 };

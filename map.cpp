@@ -5,18 +5,35 @@ using namespace std;
 
 class map{
 public:
-    map(const vector<location> &mapping) : mapping(mapping) {}
+    map(const vector<vector<location*>> &maze = {}, int width = 0, int height = 0) : maze(maze), width(width),
+                                                                          height(height) {}
 
-    const vector<location> &getMapping() const {
-        return mapping;
+    const vector<vector<location *>> &getMaze() const {
+        return maze;
     }
 
-    void setMapping(const vector<location> &mapping) {
-        map::mapping = mapping;
+    void setMaze(const vector<vector<location *>> &maze) {
+        map::maze = maze;
+    }
+
+    int getWidth() const {
+        return width;
+    }
+
+    void setWidth(int width) {
+        map::width = width;
+    }
+
+    int getHeight() const {
+        return height;
+    }
+
+    void setHeight(int height) {
+        map::height = height;
     }
 
 private:
-    vector<location> mapping;
-
+    vector<vector<location*>> maze;
+    int width, height;
 };
 

@@ -3,7 +3,12 @@
 #include<string>
 #include<cstring>
 #include<cctype>
+#include "map.cpp"
 using namespace std;
+
+pair<char, int> inputError(char x, int line){
+    return pair<char, int> (x, line);
+}
 
 //reads map and loads it into an appropriate data structure
 void readFile(){
@@ -11,6 +16,7 @@ void readFile(){
     if (in.fail()){
         cout << "Error: Couldn't open map.txt!\n";
     }else {
+        vector<vector<location*>> maze;
         char str1[100], str2[100], str3[100];
         in.getline(str1, 100);
         in.getline(str2, 100);
@@ -18,7 +24,7 @@ void readFile(){
         int line = 1, cell = 1;
 
         while (!in.eof()) {
-            int i = 0, j = 0, k = 1, cost = -1, cell = 0;
+            int i = 0, j = 0, k = 1, cost = -1, cell = 0, row = 0, col = 0;
             char name = ' ';
             bool above, below, right, left;
             cout << "line " << line << endl;
@@ -29,11 +35,13 @@ void readFile(){
                 if (str1[i] == '+') i++; // new path
                 if (str1[i] == '-') above = false;
                 else if (str1[i] == ' ') above = true;
-                // else error
+                else throw inputError(str1[i], line);
                 i = i + 3; // skips over dashes/spaces
+
+
                 if (str2[j] == '|') left = false;
                 else if (str2[j] == ' ') left = true;
-                // else error
+                else throw inputError(str2[j], line);
                 j = j + 2; // cost
                 if (str2[j] != ' ')
                     if (isdigit(str2[j])) cost = (str2[j] - '0');
@@ -45,12 +53,17 @@ void readFile(){
                 j = j + 2; //path right
                 if (str2[j] == '|') right = false;
                 else if (str2[j] == ' ') right = true;
-                // else error
+                else throw inputError(str2[j], line);
                 //path below
+
+
                 if (str3[k] == ' ') below = true;
                 else if (str3[k] == '-') below = false;
-                // else error
+                else throw inputError(str3[k], line);
                 k = k + 4; // wall below
+                location *temp (left, right, above, below, name, cost);
+                maze[row][col] = temp;
+
                 cout << "cell = " << cell++ << endl;
                 cout << "above: " << above << "\t";
                 cout << "below: " << below << endl;
@@ -59,6 +72,8 @@ void readFile(){
                 cout << "cost: " << cost << endl;
                 cout << "name: " << name << endl;
                 cout << endl << endl;
+
+
             }
 
             strcpy(str1, str3);
@@ -87,7 +102,12 @@ void menu (){
     cin >> input;
     switch (input){
         case 1:
-            readFile();
+            try {
+                readFile();
+            } catch (pair<char, int> x) {
+                cout << "Error: input " << x.first << " from line " << x.second << " in map file is invalid";
+            }
+
             break;
         case 2:
 
