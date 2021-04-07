@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include<stack>
 #include "location.cpp"
 using namespace std;
 
@@ -36,6 +37,32 @@ public:
     void setHeight(int height) {
         map::height = height;
     }
+
+    
+
+    void DFS(location* & startCell,char endpoint)
+    {
+        for(int i=0;i<maze.size();++i)
+        {
+            for(int j=0;j<maze[i].size();++j)
+            {
+                maze[i][j]->setVisited(false);
+            }
+
+            startCell->setVisited(true);
+            stack<location*> process;
+            process.push(startCell);
+            while(!process.empty())
+            {
+                location* curr = process.top();
+                process.pop();
+                if()
+            }
+
+
+        }
+    }
+
 
     virtual ~map() {
         for (int i = 0; i < maze.size(); i++){

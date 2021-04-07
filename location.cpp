@@ -19,10 +19,40 @@ public:
 
     }
 
+    void setVisited(bool visit = false)
+    {
+        visited = visit;
+    }
+
+    bool getleft()
+    {
+        return left;
+    }
+    bool getright()
+    {
+        return right;
+    }
+    bool getabove()
+    {
+        return above;
+    }
+    bool getbelow()
+    {
+        return below;
+    }
+    char getname()
+    {
+        return name;
+    }
+
+
+
 
 
 private:
     bool left, right, above, below;
+    int prevX,prevY;
+    bool visited;
     char name;
     int cost;
 
