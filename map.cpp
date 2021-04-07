@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
-#include<stack>
+#include <stack>
+#include <iostream>
 #include "location.cpp"
 using namespace std;
 
@@ -64,7 +65,7 @@ public:
             for(int j=0;j<maze[i].size();++j)
             {
                 maze[i][j]->setVisited(false);
-                if(maze[i][j]->getname() == startpoint)
+                if(maze[i][j]->getName() == startpoint)
                 {
                     maze[i][j]->setVisited(true);
                     process.push(maze[i][j]);
@@ -88,12 +89,12 @@ public:
                 curr_y = curr->getY();
                 process.pop();
 
-                if(curr->getname() == endpoint)
+                if(curr->getName() == endpoint)
                 {
                     return Success(curr);
                 }
 
-                if(curr->getright() == true)
+                if(curr->isRight() == true)
                 {
                     if(!(maze[curr_x][curr_y+1]->Visited()))
                     {
@@ -104,7 +105,7 @@ public:
                     }
                 }
 
-                if(curr->getleft() == true)
+                if(curr->isLeft() == true)
                 {
                     if(!(maze[curr_x][curr_y-1]->Visited()))
                     {
@@ -115,7 +116,7 @@ public:
                     }
                 }
 
-                if(curr->getabove() == true)
+                if(curr->isAbove() == true)
                 {
                     if(!(maze[curr_x-1][curr_y-1]->Visited()))
                     {
@@ -126,7 +127,7 @@ public:
                     }
                 }
 
-                if(curr->getbelow() == true)
+                if(curr->isBelow() == true)
                 {
                     if(!(maze[curr_x+1][curr_y]->Visited()))
                     {
