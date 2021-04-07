@@ -30,6 +30,12 @@ void readFile(map & maze){
             bool above, below, right, left;
             cout << "line " << line << endl;
 
+            if (line != 1){
+                strcpy(str1, str3);
+                in.getline(str2, 100);
+                in.getline(str3, 100);
+            }
+
             while (i < strlen(str1) - 1) {
                 above = below = right = left = true;
                 name = ' ';
@@ -83,22 +89,32 @@ void readFile(map & maze){
             cout << str1 << endl;
             cout << str2 << endl;
             cout << str3 << endl;
-            strcpy(str1, str3);
-            in.getline(str2, 100);
-            in.getline(str3, 100);
+
             line++;
         }
     }
 }
 
-void displayMap()
+void displayMap(){
+
+}
+
+location* setStart(map maze, char n){
+    for (int i = 0; i < maze.getMaze().size(); i++){
+        for (int j = 0; j < maze.getMaze()[i].size(); j++){
+            if (maze.getMaze()[i][j]->getName() == n){
+                return maze.getMaze()[i][j];
+            }
+        }
+    }
+}
 
 void menu (){
     while(true) {
         cout << "Please choose an option:\n"
                 "1) Load map\n"
                 "2) Display map\n"
-                "3) Set start\n"
+                "3) Set start\n"  //done
                 "4) Set goal\n"
                 "5) Find path using DFS\n"
                 "6) Find path using BFS\n"

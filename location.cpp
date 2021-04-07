@@ -49,6 +49,7 @@ public:
 
 
 
+
 private:
     bool left, right, above, below;
     int prevX,prevY;
