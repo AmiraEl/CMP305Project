@@ -52,14 +52,9 @@ public:
 
     void DFS(char startpoint,char endpoint)
     {
-        bool check = false;
         int curr_x,curr_y;
         stack<location*> process;
-        if(startpoint == ' ' || endpoint == ' ')
-        {
-            cout<<"Points Are Invalid!";
-            return;
-        }
+
         for(int i=0;i<maze.size();++i)
         {
             for(int j=0;j<maze[i].size();++j)
@@ -71,16 +66,9 @@ public:
                     process.push(maze[i][j]);
                     curr_x = i;
                     curr_y = j;
-                    check = true;
                 }
             }
         }
-            if(!check)
-            {
-                cout<<"The Start Point is Not On The Map";
-                return;
-            }
-                                
             
             while(!process.empty())
             {

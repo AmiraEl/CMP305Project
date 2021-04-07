@@ -55,6 +55,7 @@ void readFile(map & grid){
                     else {
                         cost = 0;
                         name = str2[j];
+                        cout << name;
                     }
                 else cost = 0;
                 j = j + 2; //path right
@@ -85,16 +86,49 @@ void readFile(map & grid){
             }
             grid.push_row(rows);
             rows.clear();
+            /*
             cout << str1 << endl;
             cout << str2 << endl;
             cout << str3 << endl;
-
+*/
             line++;
         }
     }
 }
 
-void displayMap(){
+void displayMap(map grid){
+    for(int i = 0; i < grid.getWidth(); i++){
+        cout << "+--";
+    } cout << "+";
+
+    cout << endl;
+    //Middle rows:
+    for (int i = 0; i < grid.getWidth(); i++) {
+        cout << '|';
+        for (int j = 0; j < grid.getHeight(); j++) {
+
+            if (grid.getMaze()[i][j]->isStart()) {
+                cout << "(" << grid.getMaze()[i][j]->getName() << ")";
+            }
+            else if (grid.getMaze()[i][j]->isGoal()) {
+                cout << "{" << grid.getMaze()[i][j]->getName() << "}";
+            }
+            else {
+                cout << " " << grid.getMaze()[i][j]->getName() << " ";
+            }
+
+            if (!grid.getMaze()[i][j]->isRight()) {
+                cout << '|';
+            }
+            else { cout << ' '; }
+        }
+        cout << endl;
+        cout << '+';
+
+    for(int i = 0; i < grid.getWidth(); i++){
+        cout << "+--";
+    } cout << "+";
+
 
 }
 
@@ -106,7 +140,7 @@ location* findLocation(map grid, char n){
             }
         }
     }
-    throw
+    throw (n);
 }
 
 
@@ -114,7 +148,7 @@ void menu (){
     while(true) {
         location* start;
         location* end;
-        map maze;
+        map grid;
         cout << "Please choose an option:\n"
                 "1) Load map\n"
                 "2) Display map\n"
@@ -131,13 +165,16 @@ void menu (){
         switch (input) {
             case 1:
                 try {
-                    readFile(maze);
+                    readFile(grid);
+                    grid. setHeight (grid.getMaze().size());
+                    grid. setWidth (grid.getMaze()[0].size());
                 } catch (pair<char, int> x) {
                     cout << "Error: input " << x.first << " from line " << x.second << " in map file is invalid";
                 }
 
                 break;
             case 2:
+                char in;
                 try {
                     char in;
                     cout << "Enter a starting point: ";
@@ -145,7 +182,7 @@ void menu (){
                     start = findLocation(maze, in);
 
                 }catch(...){
-
+                    cout << in ;
                 }
                 break;
             case 3:
