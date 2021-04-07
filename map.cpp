@@ -94,48 +94,43 @@ public:
                     return Success(curr);
                 }
 
-                if(curr->isRight() == true)
+                if(curr->isRight() == true && !(maze[curr_x][curr_y+1]->Visited()))
                 {
-                    if(!(maze[curr_x][curr_y+1]->Visited()))
-                    {
+                   
                         maze[curr_x][curr_y+1]->setVisited(true);
                         maze[curr_x][curr_y+1]->Parent(curr_x,curr_y);
                         process.push(maze[curr_x][curr_y+1]);
-
-                    }
+                    
                 }
 
-                if(curr->isLeft() == true)
+                if(curr->isLeft() == true && !(maze[curr_x][curr_y-1]->Visited()))
                 {
-                    if(!(maze[curr_x][curr_y-1]->Visited()))
-                    {
+                    
                         maze[curr_x][curr_y-1]->setVisited(true);
                         maze[curr_x][curr_y-1]->Parent(curr_x,curr_y);
                         process.push(maze[curr_x][curr_y-1]);
 
-                    }
+                    
                 }
 
-                if(curr->isAbove() == true)
+                if(curr->isAbove() == true && !(maze[curr_x-1][curr_y-1]->Visited()))
                 {
-                    if(!(maze[curr_x-1][curr_y-1]->Visited()))
-                    {
+                    
                         maze[curr_x-1][curr_y-1]->setVisited(true);
                         maze[curr_x-1][curr_y-1]->Parent(curr_x,curr_y);
                         process.push(maze[curr_x-1][curr_y-1]);
 
-                    }
+                    
                 }
 
-                if(curr->isBelow() == true)
+                if(curr->isBelow() == true && !(maze[curr_x+1][curr_y]->Visited()))
                 {
-                    if(!(maze[curr_x+1][curr_y]->Visited()))
-                    {
+                    
                         maze[curr_x+1][curr_y+1]->setVisited(true);
                         maze[curr_x+1][curr_y+1]->Parent(curr_x,curr_y);
                         process.push(maze[curr_x+1][curr_y+1]);
 
-                    }
+                    
                 }
 
             }
