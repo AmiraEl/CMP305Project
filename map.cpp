@@ -16,7 +16,7 @@ public:
         map::maze = maze;
     }
 
-    void insert(const location* & p)
+    void insert(vector<location*> & p)
     {
         maze.push_back(p);
     }
@@ -36,6 +36,8 @@ public:
     void setHeight(int height) {
         map::height = height;
     }
+
+ 
 
 private:
     vector<vector<location*>> maze;
