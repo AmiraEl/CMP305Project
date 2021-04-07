@@ -4,6 +4,7 @@
 #include<cstring>
 #include<cctype>
 #include "map.cpp"
+
 using namespace std;
 
 pair<char, int> inputError(char x, int line){
@@ -11,12 +12,12 @@ pair<char, int> inputError(char x, int line){
 }
 
 //reads map and loads it into an appropriate data structure
-void readFile(){
-    ifstream in("map.txt");
+void readFile(map & maze){
+    ifstream in("C:\\Users\\amira\\CLionProjects\\CMP305Project\\map.txt");
     if (in.fail()){
         cout << "Error: Couldn't open map.txt!\n";
     }else {
-        vector<vector<location*>> maze;
+        vector<location*> rows;
         char str1[100], str2[100], str3[100];
         in.getline(str1, 100);
         in.getline(str2, 100);
@@ -61,8 +62,9 @@ void readFile(){
                 else if (str3[k] == '-') below = false;
                 else throw inputError(str3[k], line);
                 k = k + 4; // wall below
-                location *temp (left, right, above, below, name, cost);
-                maze[row][col] = temp;
+
+                location *temp  = new location (left, right, above, below, name, cost);
+                rows.push_back(temp);
 
                 cout << "cell = " << cell++ << endl;
                 cout << "above: " << above << "\t";
@@ -76,86 +78,80 @@ void readFile(){
 
             }
 
-            strcpy(str1, str3);
+            maze.push_row(rows);
+            rows.clear();
             cout << str1 << endl;
-            in.getline(str2, 100);
-            in.getline(str3, 100);
             cout << str2 << endl;
             cout << str3 << endl;
+            strcpy(str1, str3);
+            in.getline(str2, 100);
+            in.getline(str3, 100);
             line++;
         }
     }
 }
 
+void displayMap()
+
 void menu (){
-    cout << "Please choose an option:\n"
-            "1) Load map\n"
-            "2) Display map\n"
-            "3) Set start\n"
-            "4) Set goal\n"
-            "5) Find path using DFS\n"
-            "6) Find path using BFS\n"
-            "7) Find path using DA\n"
-            "8) Display path\n"
-            "9) Quit\n";
-    int input;
-    cin >> input;
-    switch (input){
-        case 1:
-            try {
-                readFile();
-            } catch (pair<char, int> x) {
-                cout << "Error: input " << x.first << " from line " << x.second << " in map file is invalid";
-            }
+    while(true) {
+        cout << "Please choose an option:\n"
+                "1) Load map\n"
+                "2) Display map\n"
+                "3) Set start\n"
+                "4) Set goal\n"
+                "5) Find path using DFS\n"
+                "6) Find path using BFS\n"
+                "7) Find path using DA\n"
+                "8) Display path\n"
+                "9) Quit\n";
+        int input;
+        cin >> input;
+        switch (input) {
+            case 1:
+                try {
+                    map maze;
+                    readFile(maze);
+                } catch (pair<char, int> x) {
+                    cout << "Error: input " << x.first << " from line " << x.second << " in map file is invalid";
+                }
 
-            break;
-        case 2:
+                break;
+            case 2:
 
-            break;
-        case 3:
+                break;
+            case 3:
 
-            break;
-        case 4:
+                break;
+            case 4:
 
-            break;
-        case 5:
+                break;
+            case 5:
 
-            break;
-        case 6:
+                break;
+            case 6:
 
-            break;
-        case 7:
+                break;
+            case 7:
 
-            break;
-        case 8:
+                break;
+            case 8:
 
-            break;
-        case 9:
-            cout << "Goodbye!\n";
-            exit(0);
-        default:
-            cout << "Invalid Choice!";
-            break;
+                break;
+            case 9:
+                cout << "Goodbye!\n";
+                exit(0);
+            default:
+                cout << "Invalid Choice!";
+                break;
 
+        }
     }
 
 }
 
-void printChar(int n, char c, bool n1 = false) {
-    for (int i = 0; i < n; i++) cout << c;
-    if (n1) cout << endl;
-}
-
-void printTriangle(int n, int i = 1){
-    if (n == 0) return;
-    else{
-        printChar(n-1, ' ', false);
-        printChar(i, '*', true);
-        return printTriangle(n-1, i+1);
-    }
-}
 
 int main(){
-    printTriangle(5);
+        menu();
 }
 

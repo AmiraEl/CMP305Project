@@ -37,7 +37,14 @@ public:
         map::height = height;
     }
 
- 
+    virtual ~map() {
+        for (int i = 0; i < maze.size(); i++){
+            for (int j = 0; j < maze[i].size(); j++){
+                delete maze[i][j];
+
+            }
+        }
+    }
 
 private:
     vector<vector<location*>> maze;

@@ -1,10 +1,13 @@
+
 #pragma once
 
 class location{
 public:
-    location(location *left, location *right, location *above, location *below, char name, int cost = 0) : left(left),
-    right(right), above(above),
-    below(below), name(name), cost(cost){}
+    location(bool left, bool right, bool above, bool below, char name, int cost) : left(left),
+                                                                                                 right(right),
+                                                                                                 above(above),
+                                                                                                 below(below),
+                                                                                                 name(name), cost(cost){}
 
     location(location* & copy){
         this->left = copy->left;
@@ -16,8 +19,10 @@ public:
 
     }
 
+
+
 private:
-    location *left, *right, *above, *below;
+    bool left, right, above, below;
     char name;
     int cost;
 
