@@ -16,7 +16,7 @@ public:
         map::maze = maze;
     }
 
-    void insert(vector<location*> & p)
+    void push_row(vector<location*> & p)
     {
         maze.push_back(p);
     }
