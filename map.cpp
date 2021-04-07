@@ -16,6 +16,11 @@ public:
         map::maze = maze;
     }
 
+    void insert(const location* & p)
+    {
+        maze.push_back(p);
+    }
+
     int getWidth() const {
         return width;
     }
