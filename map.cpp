@@ -38,33 +38,114 @@ public:
         map::height = height;
     }
 
+    void Success(location*& p )
+    {
+
+    }
+
+    void Failure()
+    {
+        cout<<"Path doesn't Exist!";
+    }
     
 
-    void DFS(location* & startCell,char endpoint)
+    void DFS(char startpoint,char endpoint)
     {
+        bool check = false;
+        int curr_x,curr_y;
+        stack<location*> process;
+        if(startpoint == ' ' || endpoint == ' ')
+        {
+            cout<<"Points Are Invalid!";
+            return;
+        }
         for(int i=0;i<maze.size();++i)
         {
             for(int j=0;j<maze[i].size();++j)
             {
                 maze[i][j]->setVisited(false);
+                if(maze[i][j]->getname() == startpoint)
+                {
+                    maze[i][j]->setVisited(true);
+                    process.push(maze[i][j]);
+                    curr_x = i;
+                    curr_y = j;
+                    check = true;
+                }
             }
-
-            startCell->setVisited(true);
-            stack<location*> process;
-            process.push(startCell);
+        }
+            if(!check)
+            {
+                cout<<"The Start Point is Not On The Map";
+                return;
+            }
+                                
+            
             while(!process.empty())
             {
                 location* curr = process.top();
+                curr_x = curr->getX();
+                curr_y = curr->getY();
                 process.pop();
-                if()
+
+                if(curr->getname() == endpoint)
+                {
+                    return Success(curr);
+                }
+
+                if(curr->getright() == true)
+                {
+                    if(!(maze[curr_x][curr_y+1]->Visited()))
+                    {
+                        maze[curr_x][curr_y+1]->setVisited(true);
+                        maze[curr_x][curr_y+1]->Parent(curr_x,curr_y);
+                        process.push(maze[curr_x][curr_y+1]);
+
+                    }
+                }
+
+                if(curr->getleft() == true)
+                {
+                    if(!(maze[curr_x][curr_y-1]->Visited()))
+                    {
+                        maze[curr_x][curr_y-1]->setVisited(true);
+                        maze[curr_x][curr_y-1]->Parent(curr_x,curr_y);
+                        process.push(maze[curr_x][curr_y-1]);
+
+                    }
+                }
+
+                if(curr->getabove() == true)
+                {
+                    if(!(maze[curr_x-1][curr_y-1]->Visited()))
+                    {
+                        maze[curr_x-1][curr_y-1]->setVisited(true);
+                        maze[curr_x-1][curr_y-1]->Parent(curr_x,curr_y);
+                        process.push(maze[curr_x-1][curr_y-1]);
+
+                    }
+                }
+
+                if(curr->getbelow() == true)
+                {
+                    if(!(maze[curr_x+1][curr_y]->Visited()))
+                    {
+                        maze[curr_x+1][curr_y+1]->setVisited(true);
+                        maze[curr_x+1][curr_y+1]->Parent(curr_x,curr_y);
+                        process.push(maze[curr_x+1][curr_y+1]);
+
+                    }
+                }
+
             }
+            return Failure();
 
 
-        }
+        
     }
 
 
-    virtual ~map() {
+    ~map() {
         for (int i = 0; i < maze.size(); i++){
             for (int j = 0; j < maze[i].size(); j++){
                 delete maze[i][j];

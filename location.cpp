@@ -3,7 +3,7 @@
 
 class location{
 public:
-    location(bool left, bool right, bool above, bool below, char name, int cost) : left(left),
+    location(bool left, bool right, bool above, bool below, int cost , char name = ' ') : left(left),
                                                                                                  right(right),
                                                                                                  above(above),
                                                                                                  below(below),
@@ -22,6 +22,11 @@ public:
     void setVisited(bool visit = false)
     {
         visited = visit;
+    }
+
+    bool Visited()
+    {
+        return visited;
     }
 
     bool getleft()
@@ -45,6 +50,24 @@ public:
         return name;
     }
 
+    void Parent(char x, char y)
+    {
+        prevX = x;
+        prevY = y;
+    }
+
+    int getX()
+    {
+        return x;
+    }
+
+    int getY()
+    {
+        return y;
+    }
+
+
+
 
 
 
@@ -52,6 +75,7 @@ public:
 
 private:
     bool left, right, above, below;
+    int x,y;
     int prevX,prevY;
     bool visited;
     char name;
