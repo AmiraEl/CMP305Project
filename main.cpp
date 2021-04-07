@@ -12,7 +12,7 @@ pair<char, int> inputError(char x, int line){
 }
 
 //reads map and loads it into an appropriate data structure
-void readFile(map & maze){
+void readFile(map & grid){
     ifstream in("C:\\Users\\amira\\CLionProjects\\CMP305Project\\map.txt");
     if (in.fail()){
         cout << "Error: Couldn't open map.txt!\n";
@@ -72,19 +72,18 @@ void readFile(map & maze){
                 location *temp  = new location (left, right, above, below, name, cost);
                 rows.push_back(temp);
 
-                cout << "cell = " << cell++ << endl;
+                /*cout << "cell = " << cell++ << endl;
                 cout << "above: " << above << "\t";
                 cout << "below: " << below << endl;
                 cout << "right: " << right << "\t";
                 cout << "left: " << left << endl;
                 cout << "cost: " << cost << endl;
                 cout << "name: " << name << endl;
-                cout << endl << endl;
+                cout << endl << endl;*/
 
 
             }
-
-            maze.push_row(rows);
+            grid.push_row(rows);
             rows.clear();
             cout << str1 << endl;
             cout << str2 << endl;
@@ -99,34 +98,39 @@ void displayMap(){
 
 }
 
-location* setStart(map maze, char n){
-    for (int i = 0; i < maze.getMaze().size(); i++){
-        for (int j = 0; j < maze.getMaze()[i].size(); j++){
-            if (maze.getMaze()[i][j]->getName() == n){
-                return maze.getMaze()[i][j];
+location* findLocation(map grid, char n){
+    for (int i = 0; i < grid.getMaze().size(); i++){
+        for (int j = 0; j < grid.getMaze()[i].size(); j++){
+            if (grid.getMaze()[i][j]->getName() == n){
+                return grid.getMaze()[i][j];
             }
         }
     }
+    throw
 }
+
 
 void menu (){
     while(true) {
+        location* start;
+        location* end;
+        map maze;
         cout << "Please choose an option:\n"
                 "1) Load map\n"
                 "2) Display map\n"
                 "3) Set start\n"  //done
-                "4) Set goal\n"
+                "4) Set goal\n"  //done
                 "5) Find path using DFS\n"
                 "6) Find path using BFS\n"
                 "7) Find path using DA\n"
                 "8) Display path\n"
                 "9) Quit\n";
         int input;
+
         cin >> input;
         switch (input) {
             case 1:
                 try {
-                    map maze;
                     readFile(maze);
                 } catch (pair<char, int> x) {
                     cout << "Error: input " << x.first << " from line " << x.second << " in map file is invalid";
@@ -134,7 +138,15 @@ void menu (){
 
                 break;
             case 2:
+                try {
+                    char in;
+                    cout << "Enter a starting point: ";
+                    cin >> in;
+                    start = findLocation(maze, in);
 
+                }catch(...){
+
+                }
                 break;
             case 3:
 
