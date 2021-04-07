@@ -29,25 +29,37 @@ public:
         return visited;
     }
 
-    bool getleft()
-    {
+
+    bool isLeft() const {
         return left;
     }
-    bool getright()
-    {
+
+    void setLeft(bool left) {
+        location::left = left;
+    }
+
+    bool isRight() const {
         return right;
     }
-    bool getabove()
-    {
+
+    void setRight(bool right) {
+        location::right = right;
+    }
+
+    bool isAbove() const {
         return above;
     }
-    bool getbelow()
-    {
+
+    void setAbove(bool above) {
+        location::above = above;
+    }
+
+    bool isBelow() const {
         return below;
     }
-    char getname()
-    {
-        return name;
+
+    void setBelow(bool below) {
+        location::below = below;
     }
 
     void Parent(char x, char y)
@@ -68,9 +80,41 @@ public:
 
 
 
+    int getPrevX() const {
+        return prevX;
+    }
 
+    void setPrevX(int prevX) {
+        location::prevX = prevX;
+    }
 
+    int getPrevY() const {
+        return prevY;
+    }
 
+    void setPrevY(int prevY) {
+        location::prevY = prevY;
+    }
+
+    bool isVisited() const {
+        return visited;
+    }
+
+    char getName() const {
+        return name;
+    }
+
+    void setName(char name) {
+        location::name = name;
+    }
+
+    int getCost() const {
+        return cost;
+    }
+
+    void setCost(int cost) {
+        location::cost = cost;
+    }
 
 
 private:
