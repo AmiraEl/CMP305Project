@@ -96,10 +96,11 @@ void readFile(map & grid){
     }
 }
 
-void displayMap(map grid){
-    for(int i = 0; i < grid.getWidth(); i++){
+void displayMap(map grid) {
+    for (int i = 0; i < grid.getWidth(); i++) {
         cout << "+--";
-    } cout << "+";
+    }
+    cout << "+";
 
     cout << endl;
     //Middle rows:
@@ -109,30 +110,29 @@ void displayMap(map grid){
 
             if (grid.getMaze()[i][j]->isStart()) {
                 cout << "(" << grid.getMaze()[i][j]->getName() << ")";
-            }
-            else if (grid.getMaze()[i][j]->isGoal()) {
+            } else if (grid.getMaze()[i][j]->isGoal()) {
                 cout << "{" << grid.getMaze()[i][j]->getName() << "}";
-            }
-            else {
+            } else {
                 cout << " " << grid.getMaze()[i][j]->getName() << " ";
             }
 
             if (!grid.getMaze()[i][j]->isRight()) {
                 cout << '|';
-            }
-            else { cout << ' '; }
+            } else { cout << ' '; }
         }
         cout << endl;
         cout << '+';
 
-    for(int i = 0; i < grid.getWidth(); i++){
-        cout << "+--";
-    } cout << "+";
+        for (int i = 0; i < grid.getWidth(); i++) {
+            cout << "+--";
+        }
+        cout << "+";
 
 
+    }
 }
 
-location* findLocation(map grid, char n){
+location* findLocation(map grid, char n) {
     for (int i = 0; i < grid.getMaze().size(); i++){
         for (int j = 0; j < grid.getMaze()[i].size(); j++){
             if (grid.getMaze()[i][j]->getName() == n){
@@ -179,7 +179,7 @@ void menu (){
                     char in;
                     cout << "Enter a starting point: ";
                     cin >> in;
-                    start = findLocation(maze, in);
+                    start = findLocation(grid, in);
 
                 }catch(...){
                     cout << in ;

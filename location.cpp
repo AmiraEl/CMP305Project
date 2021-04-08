@@ -101,7 +101,7 @@ public:
         location::prevY = prevY;
     }
 
-    bool isVisited() const {
+    bool Visited() const {
         return visited;
     }
 
@@ -119,6 +119,22 @@ public:
 
     void setCost(int cost) {
         location::cost = cost;
+    }
+
+    bool isStart() const {
+        return start;
+    }
+
+    void setStart(bool start) {
+        location::start = start;
+    }
+
+    bool isGoal() const {
+        return goal;
+    }
+
+    void setGoal(bool goal) {
+        location::goal = goal;
     }
 
 
