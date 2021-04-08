@@ -3,11 +3,11 @@
 
 class location{
 public:
-    location(bool left, bool right, bool above, bool below, int cost , char name = ' ') : left(left),
-                                                                                                 right(right),
-                                                                                                 above(above),
-                                                                                                 below(below),
-                                                                                                 name(name), cost(cost){}
+    location(bool left = false, bool right = false, bool above = false, bool below = false, bool start = false
+            , bool goal = false, int x = 0, int y = 0, int prevX = 0, int prevY = 0,
+             bool visited = false, char name = ' ', int cost = 0) : left(left), right(right), above(above), below(below), start(start),
+                                                  goal(goal), x(x), y(y), prevX(prevX), prevY(prevY), visited(visited),
+                                                  name(name), cost(cost) {}
 
     location(location* & copy){
         this->left = copy->left;
@@ -16,7 +16,13 @@ public:
         this->below = copy->below;
         this->name = copy->name;
         this->cost = copy->cost;
-
+        this->visited = copy->visited;
+        this->x = copy->x;
+        this->y = copy->y;
+        this->prevX = copy->prevX;
+        this->prevY = copy->prevY;
+        this->start = copy->start;
+        this->goal = copy->goal;
     }
 
     void setVisited(bool visit = false)
@@ -24,7 +30,7 @@ public:
         visited = visit;
     }
 
-    bool Visited()
+    bool isVisited()
     {
         return visited;
     }
@@ -79,7 +85,6 @@ public:
     }
 
 
-
     int getPrevX() const {
         return prevX;
     }
@@ -118,7 +123,7 @@ public:
 
 
 private:
-    bool left, right, above, below;
+    bool left, right, above, below, start, goal;
     int x,y;
     int prevX,prevY;
     bool visited;
