@@ -12,6 +12,11 @@ public:
     map(const vector<vector<location *>> &maze = {}, int width = 0, int height = 0) : maze(maze), width(width),
                                                                                       height(height) {}
 
+    map (map & cpy){
+        this->maze = cpy.maze;
+        this->width = cpy.width;
+        this->height = cpy.height;
+    }
     const vector<vector<location *>> &getMaze() const {
         return maze;
     }
