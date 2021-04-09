@@ -60,7 +60,6 @@ public:
 
         for (int i = 0; i < maze.size(); ++i) {
             for (int j = 0; j < maze[i].size(); ++j) {
-                maze[i][j]->setVisited(false);
                 if (maze[i][j]->isStart()) {
                     maze[i][j]->setVisited(true);
                     process.push(maze[i][j]);
@@ -84,7 +83,6 @@ public:
             if (curr->isRight() && !(maze[curr_x][curr_y + 1]->Visited())) {
 
                 maze[curr_x][curr_y + 1]->setVisited(true);
-                if(maze[curr_x][curr_y+1]->getName() == ' ') maze[curr_x][curr_y + 1]->setName('.');
                 maze[curr_x][curr_y + 1]->Parent(curr_x, curr_y);
                 process.push(maze[curr_x][curr_y + 1]);
 
@@ -93,7 +91,6 @@ public:
             if (curr->isLeft()  && !(maze[curr_x][curr_y - 1]->Visited())) {
 
                 maze[curr_x][curr_y - 1]->setVisited(true);
-                if(maze[curr_x][curr_y-1]->getName() == ' ') maze[curr_x][curr_y - 1]->setName('.');
                 maze[curr_x][curr_y - 1]->Parent(curr_x, curr_y);
                 process.push(maze[curr_x][curr_y - 1]);
 
@@ -103,7 +100,6 @@ public:
             if (curr->isAbove() && !(maze[curr_x - 1][curr_y - 1]->Visited())) {
 
                 maze[curr_x - 1][curr_y - 1]->setVisited(true);
-                if(maze[curr_x - 1][curr_y - 1]->getName() == ' ') maze[curr_x - 1][curr_y - 1]->setName('.');
                 maze[curr_x - 1][curr_y - 1]->Parent(curr_x, curr_y);
                 process.push(maze[curr_x - 1][curr_y - 1]);
 
@@ -113,7 +109,6 @@ public:
             if (curr->isBelow() && !(maze[curr_x + 1][curr_y]->Visited())) {
 
                 maze[curr_x + 1][curr_y + 1]->setVisited(true);
-                if(maze[curr_x + 1][curr_y + 1]->getName() == ' ') maze[curr_x + 1][curr_y + 1]->setName('.');
                 maze[curr_x + 1][curr_y + 1]->Parent(curr_x, curr_y);
                 process.push(maze[curr_x + 1][curr_y + 1]);
 

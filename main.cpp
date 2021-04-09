@@ -7,18 +7,18 @@
 
 using namespace std;
 
-int inputError(char x, int line){
-  cout << "Error: input " << x << " from line " <<line<< " in map file is invalid/n"  ;
-  return -1;
+int inputError(char x, int line) {
+    cout << "Error: input " << x << " from line " << line << " in map file is invalid/n";
+    return -1;
 }
 
 //reads map and loads it into an appropriate data structure
-void readFile(map & grid){
-    ifstream in("map.txt");
-    if (in.fail()){
+void readFile(map &grid) {
+    ifstream in("C:\\Users\\amira\\CLionProjects\\CMP305Project\\map.txt");
+    if (in.fail()) {
         cout << "Error: Couldn't open map.txt!\n";
-    }else {
-        vector<location*> rows;
+    } else {
+        vector<location *> rows;
         char str1[100], str2[100], str3[100];
         in.getline(str1, 100);
         in.getline(str2, 100);
@@ -31,7 +31,7 @@ void readFile(map & grid){
             bool above, below, right, left;
             //cout << "line " << line << endl;
 
-            if (line != 1){
+            if (line != 1) {
                 strcpy(str1, str3);
                 in.getline(str2, 100);
                 in.getline(str3, 100);
@@ -70,7 +70,7 @@ void readFile(map & grid){
                 else throw inputError(str3[k], line);
                 k = k + 4; // wall below
 
-                location *temp  = new location (left, right, above, below, name, cost);
+                location *temp = new location(left, right, above, below, name, cost);
                 rows.push_back(temp);
 
                 /*cout << "cell = " << cell++ << endl;
@@ -96,8 +96,8 @@ void readFile(map & grid){
     }
 }
 
-void displayMap(const map & grid) {
-    if(grid.getWidth() == 0 || grid.getHeight() == 0) throw grid.getWidth();
+void displayMap(const map &grid) {
+    if (grid.getWidth() == 0 || grid.getHeight() == 0) throw grid.getWidth();
     for (int i = 0; i < grid.getWidth(); i++) {
         cout << "+---";
     }
@@ -125,9 +125,9 @@ void displayMap(const map & grid) {
 
 
         for (int j = 0; j < grid.getWidth(); j++) {
-            if(!grid.getMaze()[i][j]->isBelow()){
+            if (!grid.getMaze()[i][j]->isBelow()) {
                 cout << "+---";
-            }else{
+            } else {
                 cout << "+   ";
             }
         }
@@ -138,42 +138,39 @@ void displayMap(const map & grid) {
 
 }
 
-void setStart(map grid, char n) {
-    for (int i = 0; i < grid.getMaze().size(); i++){
-        for (int j = 0; j < grid.getMaze()[i].size(); j++){
-            if (grid.getMaze()[i][j]->getName() == n)
-            {
+void setStart(map &grid, char n) {
+    for (int i = 0; i < grid.getMaze().size(); i++) {
+        for (int j = 0; j < grid.getMaze()[i].size(); j++) {
+            if (grid.getMaze()[i][j]->getName() == n) {
                 grid.getMaze()[i][j]->setStart(true);
                 return;
             }
-            
+
         }
     }
-    cout<<"Couldn't Find The Position.\n";
-    
+    cout << "Couldn't Find The Position.\n";
+
 }
 
-void setEnd(map grid, char n)
-{
-    for (int i = 0; i < grid.getMaze().size(); i++){
-        for (int j = 0; j < grid.getMaze()[i].size(); j++){
-            if (grid.getMaze()[i][j]->getName() == n)
-            {
+void setEnd(map &grid, char n) {
+    for (int i = 0; i < grid.getMaze().size(); i++) {
+        for (int j = 0; j < grid.getMaze()[i].size(); j++) {
+            if (grid.getMaze()[i][j]->getName() == n) {
                 grid.getMaze()[i][j]->setGoal(true);
                 return;
             }
-            
+
         }
     }
-    cout<<"Couldn't Find The Position.\n";
-    
+    cout << "Couldn't Find The Position.\n";
+
 }
 
 
-void menu (map & grid){
-    while(true) {
-        location* start;
-        location* end;
+void menu(map &grid) {
+    char in;
+    while (true) {
+
         cout << "Please choose an option:\n"
                 "1) Load map\n"
                 "2) Display map\n"
@@ -191,12 +188,12 @@ void menu (map & grid){
             case 1:
                 try {
                     readFile(grid);
-                   // grid.setHeight (grid.getMaze().size());
-                   // grid.setWidth (grid.getMaze()[0].size());
-                   
+                    // grid.setHeight (grid.getMaze().size());
+                    // grid.setWidth (grid.getMaze()[0].size());
+
                 } catch (int x) {
-                    
-                }catch(...){
+
+                } catch (...) {
                     cout << "Error: Cannot load Map!/n";
                 }
 
@@ -210,30 +207,20 @@ void menu (map & grid){
 
                 break;
             case 3:
-                
-                    char in;
-                    cout << "Enter a starting point: ";
-                    cin >> in;
-                    setStart(grid, in);
-                                    
-
-                
+                cout << "Enter a starting point: ";
+                cin >> in;
+                setStart(grid, in);
                 break;
+
             case 4:
-                 char in;
-                    cout << "Enter a End point: ";
-                    cin >> in;
-                    setStart(grid, in);
-                                    
-
-                
+                cout << "Enter a End point: ";
+                cin >> in;
+                setEnd(grid, in);
                 break;
-
-               
 
             case 5:
-                grid.DFS();
 
+                grid.DFS();
                 break;
             case 6:
 
@@ -257,8 +244,8 @@ void menu (map & grid){
 }
 
 
-int main(){
+int main() {
     map grid;
-        menu(grid);
+    menu(grid);
 }
 

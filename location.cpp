@@ -28,14 +28,8 @@ public:
     void setVisited(bool visit = false)
     {
         visited = visit;
-        this->name = '.';
+        if(this->getName() == ' ') this->setName('.');
     }
-
-    bool isVisited()
-    {
-        return visited;
-    }
-
 
     bool isLeft() const {
         return left;
@@ -69,7 +63,7 @@ public:
         location::below = below;
     }
 
-    void Parent(char x, char y)
+    void Parent(int x, int y)
     {
         prevX = x;
         prevY = y;
