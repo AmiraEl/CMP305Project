@@ -7,13 +7,14 @@
 
 using namespace std;
 
-pair<char, int> inputError(char x, int line){
-    return pair<char, int> (x, line);
+int inputError(char x, int line){
+  cout << "Error: input " << x << " from line " <<line<< " in map file is invalid/n"  ;
+  return -1;
 }
 
 //reads map and loads it into an appropriate data structure
 void readFile(map & grid){
-    ifstream in("C:\\Users\\amira\\CLionProjects\\CMP305Project\\map.txt");
+    ifstream in("map.txt");
     if (in.fail()){
         cout << "Error: Couldn't open map.txt!\n";
     }else {
@@ -96,7 +97,7 @@ void readFile(map & grid){
 }
 
 void displayMap(const map & grid) {
-    if(grid.getWidth() == 0 or grid.getHeight() == 0) throw grid.getWidth();
+    if(grid.getWidth() == 0 || grid.getHeight() == 0) throw grid.getWidth();
     for (int i = 0; i < grid.getWidth(); i++) {
         cout << "+---";
     }
@@ -137,15 +138,35 @@ void displayMap(const map & grid) {
 
 }
 
-pair<int, int> findLocation(map grid, char n) {
+void setStart(map grid, char n) {
     for (int i = 0; i < grid.getMaze().size(); i++){
         for (int j = 0; j < grid.getMaze()[i].size(); j++){
-            if (grid.getMaze()[i][j]->getName() == n){
-                return pair<int, int> (i, j);
+            if (grid.getMaze()[i][j]->getName() == n)
+            {
+                grid.getMaze()[i][j]->setStart(true);
+                return;
             }
+            
         }
     }
-    return pair<int, int> (-1, -1);
+    cout<<"Couldn't Find The Position.\n";
+    
+}
+
+void setEnd(map grid, char n)
+{
+    for (int i = 0; i < grid.getMaze().size(); i++){
+        for (int j = 0; j < grid.getMaze()[i].size(); j++){
+            if (grid.getMaze()[i][j]->getName() == n)
+            {
+                grid.getMaze()[i][j]->setGoal(true);
+                return;
+            }
+            
+        }
+    }
+    cout<<"Couldn't Find The Position.\n";
+    
 }
 
 
@@ -172,8 +193,9 @@ void menu (map & grid){
                     readFile(grid);
                    // grid.setHeight (grid.getMaze().size());
                    // grid.setWidth (grid.getMaze()[0].size());
-                } catch (pair<char, int> x) {
-                    cout << "Error: input " << x.first << " from line " << x.second << " in map file is invalid/n";
+                   
+                } catch (int x) {
+                    
                 }catch(...){
                     cout << "Error: Cannot load Map!/n";
                 }
@@ -188,36 +210,26 @@ void menu (map & grid){
 
                 break;
             case 3:
-                char in;
-                try {
+                
                     char in;
                     cout << "Enter a starting point: ";
                     cin >> in;
-                    //pair<int, int> index = findLocation(grid, in);
-                   // if (index.first != -1)
-                    //grid.getMaze()[index.first][index.second]->setStart(true);
-                    //else throw (index.first);
-                    grid.getMaze()[0][0]->setStart(true);
+                    setStart(grid, in);
+                                    
 
-                }catch(...){
-                    cout << "Error: " << in << " is not a valid point on the map!\n" ;
-                }
+                
                 break;
             case 4:
-                try {
-                    char in;
-                    cout << "Enter an ending point: ";
+                 char in;
+                    cout << "Enter a End point: ";
                     cin >> in;
-                    //pair<int, int> index = findLocation(grid, in);
-                    //if (index.first != -1)
-                    //    grid.getMaze()[index.first][index.second]->setGoal(true);
-                   // else throw (index.first);
+                    setStart(grid, in);
+                                    
 
-                }catch(...){
-                    cout << "Error: " << in << " is not a valid point on the map!\n" ;
-                }
-
+                
                 break;
+
+               
 
             case 5:
                 grid.DFS();
