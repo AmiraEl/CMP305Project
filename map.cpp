@@ -1,14 +1,16 @@
 #pragma once
+
 #include <vector>
 #include <stack>
 #include <iostream>
 #include "location.cpp"
+
 using namespace std;
 
-class map{
+class map {
 public:
-    map(const vector<vector<location*>> &maze = {}, int width = 0, int height = 0) : maze(maze), width(width),
-                                                                          height(height) {}
+    map(const vector<vector<location *>> &maze = {}, int width = 0, int height = 0) : maze(maze), width(width),
+                                                                                      height(height) {}
 
     const vector<vector<location *>> &getMaze() const {
         return maze;
@@ -18,9 +20,10 @@ public:
         map::maze = maze;
     }
 
-    void push_row(vector<location*> & p)
-    {
+    void push_row(vector<location *> &p) {
         maze.push_back(p);
+        height ++;
+        width = p.size();
     }
 
     int getWidth() const {
@@ -39,29 +42,26 @@ public:
         map::height = height;
     }
 
-    void Success(location*& p )
-    {
-
+    void Success(location *& p) {
+        while(not p->isStart()){
+            p->setName('o');
+            p = this->maze[p->getPrevX()][p->getPrevY()];
+        }
     }
 
-    void Failure()
-    {
-        cout<<"Path doesn't Exist!";
+    void Failure() {
+        cout << "Path doesn't Exist!";
     }
-    
 
-    void DFS(char startpoint,char endpoint)
-    {
-        int curr_x,curr_y;
-        stack<location*> process;
 
-        for(int i=0;i<maze.size();++i)
-        {
-            for(int j=0;j<maze[i].size();++j)
-            {
+    void DFS() {
+        int curr_x, curr_y;
+        stack<location *> process;
+
+        for (int i = 0; i < maze.size(); ++i) {
+            for (int j = 0; j < maze[i].size(); ++j) {
                 maze[i][j]->setVisited(false);
-                if(maze[i][j]->getName() == startpoint)
-                {
+                if (maze[i][j]->isStart()) {
                     maze[i][j]->setVisited(true);
                     process.push(maze[i][j]);
                     curr_x = i;
@@ -69,69 +69,63 @@ public:
                 }
             }
         }
-            
-            while(!process.empty())
-            {
-                location* curr = process.top();
-                curr_x = curr->getX();
-                curr_y = curr->getY();
-                process.pop();
 
-                if(curr->getName() == endpoint)
-                {
-                    return Success(curr);
-                }
+        while (!process.empty()) {
+            location *curr = process.top();
+            curr_x = curr->getX();
+            curr_y = curr->getY();
+            process.pop();
 
-                if(curr->isRight() == true && !(maze[curr_x][curr_y+1]->Visited()))
-                {
-                   
-                        maze[curr_x][curr_y+1]->setVisited(true);
-                        maze[curr_x][curr_y+1]->Parent(curr_x,curr_y);
-                        process.push(maze[curr_x][curr_y+1]);
-                    
-                }
+            if (curr->isGoal()) {
 
-                if(curr->isLeft() == true && !(maze[curr_x][curr_y-1]->Visited()))
-                {
-                    
-                        maze[curr_x][curr_y-1]->setVisited(true);
-                        maze[curr_x][curr_y-1]->Parent(curr_x,curr_y);
-                        process.push(maze[curr_x][curr_y-1]);
+                return this->Success(curr);
+            }
 
-                    
-                }
+            if (curr->isRight() && !(maze[curr_x][curr_y + 1]->Visited())) {
 
-                if(curr->isAbove() == true && !(maze[curr_x-1][curr_y-1]->Visited()))
-                {
-                    
-                        maze[curr_x-1][curr_y-1]->setVisited(true);
-                        maze[curr_x-1][curr_y-1]->Parent(curr_x,curr_y);
-                        process.push(maze[curr_x-1][curr_y-1]);
-
-                    
-                }
-
-                if(curr->isBelow() == true && !(maze[curr_x+1][curr_y]->Visited()))
-                {
-                    
-                        maze[curr_x+1][curr_y+1]->setVisited(true);
-                        maze[curr_x+1][curr_y+1]->Parent(curr_x,curr_y);
-                        process.push(maze[curr_x+1][curr_y+1]);
-
-                    
-                }
+                maze[curr_x][curr_y + 1]->setVisited(true);
+                maze[curr_x][curr_y + 1]->Parent(curr_x, curr_y);
+                process.push(maze[curr_x][curr_y + 1]);
 
             }
-            return Failure();
+
+            if (curr->isLeft()  && !(maze[curr_x][curr_y - 1]->Visited())) {
+
+                maze[curr_x][curr_y - 1]->setVisited(true);
+                maze[curr_x][curr_y - 1]->Parent(curr_x, curr_y);
+                process.push(maze[curr_x][curr_y - 1]);
 
 
-        
+            }
+
+            if (curr->isAbove() && !(maze[curr_x - 1][curr_y - 1]->Visited())) {
+
+                maze[curr_x - 1][curr_y - 1]->setVisited(true);
+                maze[curr_x - 1][curr_y - 1]->Parent(curr_x, curr_y);
+                process.push(maze[curr_x - 1][curr_y - 1]);
+
+
+            }
+
+            if (curr->isBelow() && !(maze[curr_x + 1][curr_y]->Visited())) {
+
+                maze[curr_x + 1][curr_y + 1]->setVisited(true);
+                maze[curr_x + 1][curr_y + 1]->Parent(curr_x, curr_y);
+                process.push(maze[curr_x + 1][curr_y + 1]);
+
+
+            }
+
+        }
+        return Failure();
+
+
     }
 
 
     ~map() {
-        for (int i = 0; i < maze.size(); i++){
-            for (int j = 0; j < maze[i].size(); j++){
+        for (int i = 0; i < maze.size(); i++) {
+            for (int j = 0; j < maze[i].size(); j++) {
                 delete maze[i][j];
 
             }
@@ -139,7 +133,7 @@ public:
     }
 
 private:
-    vector<vector<location*>> maze;
+    vector<vector<location *>> maze;
     int width, height;
 };
 
