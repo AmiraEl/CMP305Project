@@ -169,6 +169,7 @@ void setEnd(map &grid, char n) {
 
 void menu(map &grid) {
     char in;
+    map temp; //map after file is loaded
     while (true) {
 
         cout << "Please choose an option:\n"
@@ -188,6 +189,7 @@ void menu(map &grid) {
             case 1:
                 try {
                     readFile(grid);
+                    temp = grid;
                     // grid.setHeight (grid.getMaze().size());
                     // grid.setWidth (grid.getMaze()[0].size());
 
@@ -200,7 +202,7 @@ void menu(map &grid) {
                 break;
             case 2:
                 try {
-                    displayMap(grid);
+                    displayMap(temp);
                 } catch (...) {
                     cout << "Error: cannot display map!\n";
                 }
@@ -229,7 +231,8 @@ void menu(map &grid) {
 
                 break;
             case 8:
-
+                cout << "Displaying path:\n";
+                displayMap(grid);
                 break;
             case 9:
                 cout << "Goodbye!\n";
