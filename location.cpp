@@ -3,8 +3,8 @@
 class location{
 public:
     location(bool left = false, bool right = false, bool above = false, bool below = false, char name = ' ',
-             int cost = 0, bool start = false
-            , bool goal = 0, int x = 0, int y = 0, int prevX = 0, int prevY = 0,
+             int cost = 0, int x = 0, int y = 0, bool start = false
+            , bool goal = 0, int prevX = 0, int prevY = 0,
              bool visited = false) : left(left), right(right), above(above), below(below), start(start),
                                                   goal(goal), x(x), y(y), prevX(prevX), prevY(prevY), visited(visited),
                                                   name(name), cost(cost) {}

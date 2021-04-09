@@ -43,6 +43,7 @@ public:
     }
 
     void Success(location *& p) {
+        p = this->maze[p->getPrevX()][p->getPrevY()];
         while(!p->isStart()){
             p->setName('o');
             p = this->maze[p->getPrevX()][p->getPrevY()];
@@ -50,7 +51,7 @@ public:
     }
 
     void Failure() {
-        cout << "Path doesn't Exist!";
+        cout << "Path doesn't Exist!\n";
     }
 
 
@@ -97,7 +98,7 @@ public:
 
             }
 
-            if (curr->isAbove() && !(maze[curr_x - 1][curr_y - 1]->Visited())) {
+            if (curr->isAbove() && !(maze[curr_x - 1][curr_y]->Visited())) {
 
                 maze[curr_x - 1][curr_y - 1]->setVisited(true);
                 maze[curr_x - 1][curr_y - 1]->Parent(curr_x, curr_y);

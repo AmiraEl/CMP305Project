@@ -23,10 +23,10 @@ void readFile(map &grid) {
         in.getline(str1, 100);
         in.getline(str2, 100);
         in.getline(str3, 100);
-        int line = 1, cell = 1;
+        int line = 1, cell = 1, x = 0;
 
         while (!in.eof()) {
-            int i = 0, j = 0, k = 1, cost = -1, cell = 0, row = 0, col = 0;
+            int i = 0, j = 0, k = 1, cost = -1, cell = 0, y = 0;
             char name = ' ';
             bool above, below, right, left;
             //cout << "line " << line << endl;
@@ -70,9 +70,9 @@ void readFile(map &grid) {
                 else throw inputError(str3[k], line);
                 k = k + 4; // wall below
 
-                location *temp = new location(left, right, above, below, name, cost);
+                location *temp = new location(left, right, above, below, name, cost, x, y);
                 rows.push_back(temp);
-
+                y++;
                 /*cout << "cell = " << cell++ << endl;
                 cout << "above: " << above << "\t";
                 cout << "below: " << below << endl;
@@ -92,6 +92,7 @@ void readFile(map &grid) {
             cout << str3 << endl;
 */
             line++;
+            x++;
         }
     }
 }
