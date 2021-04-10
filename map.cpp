@@ -112,18 +112,18 @@ public:
 
             if (curr->isAbove() && !(maze[curr_x - 1][curr_y]->Visited())) {
 
-                maze[curr_x - 1][curr_y - 1]->setVisited(true);
-                maze[curr_x - 1][curr_y - 1]->Parent(curr_x, curr_y);
-                process.push(maze[curr_x - 1][curr_y - 1]);
+                maze[curr_x - 1][curr_y]->setVisited(true);
+                maze[curr_x - 1][curr_y]->Parent(curr_x, curr_y);
+                process.push(maze[curr_x - 1][curr_y]);
 
 
             }
 
             if (curr->isBelow() && !(maze[curr_x + 1][curr_y]->Visited())) {
 
-                maze[curr_x + 1][curr_y + 1]->setVisited(true);
-                maze[curr_x + 1][curr_y + 1]->Parent(curr_x, curr_y);
-                process.push(maze[curr_x + 1][curr_y + 1]);
+                maze[curr_x + 1][curr_y ]->setVisited(true);
+                maze[curr_x + 1][curr_y ]->Parent(curr_x, curr_y);
+                process.push(maze[curr_x + 1][curr_y ]);
 
 
             }

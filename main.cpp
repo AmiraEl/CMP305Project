@@ -14,7 +14,7 @@ int inputError(char x, int line) {
 
 //reads map and loads it into an appropriate data structure
 void readFile(map &grid) {
-    ifstream in("C:\\Users\\amira\\CLionProjects\\CMP305Project\\map.txt");
+    ifstream in("map.txt");
     if (in.fail()) {
         cout << "Error: Couldn't open map.txt!\n";
     } else {
