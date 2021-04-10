@@ -14,10 +14,15 @@ int inputError(char x, int line) {
 
 //reads map and loads it into an appropriate data structure
 void readFile(map &grid) {
-    ifstream in("map.txt");
+    
+    string filename;
+    cout<<"\nEnter The Name Of The Map You Want To Open:";
+    cin>>filename;
+    ifstream in(filename);
     if (in.fail()) {
-        cout << "Error: Couldn't open map.txt!\n";
+        cout << "Error: Couldn't open the map!\n";
     } else {
+        
         vector<location *> rows;
         char str1[100], str2[100], str3[100];
         in.getline(str1, 100);
@@ -97,7 +102,7 @@ void readFile(map &grid) {
     }
 }
 
-void displayMap(const map &grid) {
+void displayMap(map &grid) {
     if (grid.getWidth() == 0 || grid.getHeight() == 0) throw grid.getWidth();
     for (int i = 0; i < grid.getWidth(); i++) {
         cout << "+---";
@@ -180,7 +185,7 @@ void menu(map &grid) {
                 "4) Set goal\n"  //Done
                 "5) Find path using DFS\n" // Done
                 "6) Find path using BFS\n" //Done
-                "7) Find path using DA\n"
+                "7) Find path using DA\n"  // Done
                 "8) Display path\n"// Done 
                 "9) Quit\n";// Done 
         int input;

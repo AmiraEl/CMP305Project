@@ -28,7 +28,13 @@ public:
     void setVisited(bool visit = false)
     {
         visited = visit;
-        if(this->getName() == ' ') this->setName('.');
+        if(visited)
+            if(this->getName() == ' ') this->setName('.');
+        if(!visited)
+            if(this->getName() == '.' || this->getName()== 'o') this->setName(' ');
+
+
+
     }
 
     bool isLeft() const {

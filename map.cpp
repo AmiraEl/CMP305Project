@@ -12,7 +12,7 @@ class map {
 public:
     map(const vector<vector<location *>> &maze = {}, int width = 0, int height = 0) : maze(maze), width(width),
                                                                                       height(height) {}
-
+    /*
     map operator=(map & cpy)
     {
         
@@ -36,7 +36,8 @@ public:
         this->height = cpy.height;
         return *this;
     }
-    const vector<vector<location *>> &getMaze() const {
+    */
+    vector<vector<location *>> &getMaze()  {
         return maze;
     }
 
@@ -68,16 +69,23 @@ public:
 
     void Success(location *& p) {
         p = this->maze[p->getPrevX()][p->getPrevY()];
+        stack<location*> correctOrder;
         while(!p->isStart()){
             p->setName('o');
             p = this->maze[p->getPrevX()][p->getPrevY()];
+            correctOrder.push(p);
         }
+
+
     }
+
+
     void SuccessDA(location *& p) {
         p = this->maze[p->getPrevX()][p->getPrevY()];
         while(!p->isStart()){
             if(p->getName() == '.')
-                p->setName(std::to_string(p->getCost()).c_str()[0]);
+                // This to convert the cost to a char in order to print the costs
+                p->setName(std::to_string(p->getCost())[0]); 
             p = this->maze[p->getPrevX()][p->getPrevY()];
         }
     }
@@ -102,6 +110,7 @@ public:
 
         for (int i = 0; i < maze.size(); ++i) {
             for (int j = 0; j < maze[i].size(); ++j) {
+                maze[i][j]->setVisited(false);
                 if (maze[i][j]->isStart()) {
                     maze[i][j]->setVisited(true);
                     process.push(maze[i][j]);
@@ -171,6 +180,7 @@ public:
 
         for (int i = 0; i < maze.size(); ++i) {
             for (int j = 0; j < maze[i].size(); ++j) {
+                maze[i][j]->setVisited(false);
                 if (maze[i][j]->isStart()) {
                     maze[i][j]->setVisited(true);
                     process.push(maze[i][j]);
@@ -239,6 +249,7 @@ public:
 
         for (int i = 0; i < maze.size(); ++i) {
             for (int j = 0; j < maze[i].size(); ++j) {
+                maze[i][j]->setVisited(false);
                 if (maze[i][j]->isStart()) {
                     maze[i][j]->setVisited(true);
                     process.push(maze[i][j]);
