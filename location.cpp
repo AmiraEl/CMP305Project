@@ -96,6 +96,16 @@ public:
         location::prevY = prevY;
     }
 
+    void setX(int X)
+    {
+       this->x = X ;
+    }
+
+    void setY(int Y)
+    {
+        this->y = Y;
+    }
+
     bool Visited() const {
         return visited;
     }

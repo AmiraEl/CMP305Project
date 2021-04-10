@@ -8,7 +8,7 @@
 using namespace std;
 
 int inputError(char x, int line) {
-    cout << "Error: input " << x << " from line " << line << " in map file is invalid/n";
+    cout << "Error: input " << x << " from line " << line << " in map file is invalid\n";
     return -1;
 }
 
@@ -174,15 +174,15 @@ void menu(map &grid) {
     while (true) {
 
         cout << "Please choose an option:\n"
-                "1) Load map\n"
+                "1) Load map\n" // Done 
                 "2) Display map\n"
-                "3) Set start\n"  //done
-                "4) Set goal\n"  //done
-                "5) Find path using DFS\n"
-                "6) Find path using BFS\n"
+                "3) Set start\n"  //Done
+                "4) Set goal\n"  //Done
+                "5) Find path using DFS\n" // Done
+                "6) Find path using BFS\n" //Done
                 "7) Find path using DA\n"
-                "8) Display path\n"
-                "9) Quit\n";
+                "8) Display path\n"// Done 
+                "9) Quit\n";// Done 
         int input;
 
         cin >> input;
@@ -190,7 +190,7 @@ void menu(map &grid) {
             case 1:
                 try {
                     readFile(grid);
-                    temp = grid;
+                    // temp = grid;
                     // grid.setHeight (grid.getMaze().size());
                     // grid.setWidth (grid.getMaze()[0].size());
 
@@ -203,7 +203,7 @@ void menu(map &grid) {
                 break;
             case 2:
                 try {
-                    displayMap(temp);
+                    displayMap(grid);
                 } catch (...) {
                     cout << "Error: cannot display map!\n";
                 }
@@ -226,10 +226,10 @@ void menu(map &grid) {
                 grid.DFS();
                 break;
             case 6:
-
+                grid.BFS();
                 break;
             case 7:
-
+                grid.DA();
                 break;
             case 8:
                 cout << "Displaying path:\n";
