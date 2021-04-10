@@ -13,7 +13,14 @@ public:
                                                                                       height(height) {}
 
     map (map & cpy){
-        this->maze = cpy.maze;
+        
+        for(int i=0;i<cpy.maze.size();++i)
+        {
+            for(int j=0;j<cpy.maze[i].size();++i)
+            {
+                this->maze[i][j] = cpy.maze[i][j];
+            }
+        }
         this->width = cpy.width;
         this->height = cpy.height;
     }
